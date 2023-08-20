@@ -1,10 +1,9 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
-import { useKeycloak } from '@react-keycloak/native';
+import keycloak from './keycloak';
 import styles from './styles';
 
 const Login = () => {
-  const { keycloak } = useKeycloak();
 
   return (
     <View style={styles.container}>
