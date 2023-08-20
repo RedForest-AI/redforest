@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import fetchTokens from './keycloak';
+import { fetchTokens } from './keycloak';
 
 export default function App() {
   const [tokens, setTokens] = useState<{ accessToken?: string, refreshToken?: string }>({});

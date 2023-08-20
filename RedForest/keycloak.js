@@ -2,8 +2,8 @@ import axios from 'axios'
 
 const authURL = `http://localhost:8080/auth/realms/demo/protocol/openid-connect/auth?client_id=js-console&redirect_uri=myapp://redirect&scope=openid&response_type=code&state=1234`;
 
-// For web:
-// window.location.href = authURL;
+// For web (Essential, do not remove!):
+window.location.href = authURL;
 
 // For mobile:
 // Use a library like React Native Linking or expo-web-browser to open this URL.
