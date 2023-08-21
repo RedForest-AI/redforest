@@ -1,9 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
 
-export default function Page() {
+export default function Route() {
+  const result = useLocalSearchParams();
+  console.log(result);
+
   return (
     <View style={styles.container}>
         <Text>Logged IN!</Text>
+        <Text>Session State: { result.session_state}</Text>
     </View>
   );
 }

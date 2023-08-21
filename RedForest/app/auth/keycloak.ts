@@ -26,8 +26,10 @@ import { Platform } from 'react-native';
 //     return null;
 //   }
 
+const redirect_uri = 'http://localhost:8081/auth-callback';
+
 export function useAuth() {
-  const authURL = `http://10.0.0.188:8080/auth/realms/demo/protocol/openid-connect/auth?client_id=js-console&redirect_uri=http://localhost:8081/auth-callback&scope=openid&response_type=code&state=1234`;
+  const authURL = `http://10.0.0.188:8080/auth/realms/demo/protocol/openid-connect/auth?client_id=js-console&redirect_uri=${redirect_uri}&scope=openid&response_type=code&state=1234`;
 
   // For web (Essential, do not remove!):
   if (Platform.OS == 'web') {
