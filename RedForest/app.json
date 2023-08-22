@@ -11,7 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "scheme": "myapp",
+    "scheme": "com.redforest.app",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -21,7 +21,22 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#000000",
+        "intentFilters": [
+          {
+            "action": "VIEW",
+            "data": {
+              "scheme": "https",
+              "host": "*.redforest.app",
+              "pathPrefix": "/",
+              "pathPattern": ".*"
+            },
+            "category": [
+              "BROWSABLE",
+              "DEFAULT"
+            ]
+          }
+        ]
       }
     },
     "web": {

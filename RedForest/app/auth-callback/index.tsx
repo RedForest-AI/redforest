@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
+import { Platform } from 'react-native';
 
 import { fetchTokens } from '../../src/auth/keycloak';
 import useAuthStore from '../../src/store/AuthStore';
@@ -10,14 +11,20 @@ export default function Route() {
   const params = useLocalSearchParams();
   const [isAuthenticated, setAuth] = useAuthStore((state) => [state.isAuthenticated , state.setAuth]);
   const router = useRouter();
+  let redirectUri = 'com.redforest.app://auth-callback';
 
   useEffect(() => {
     async function getTokens(){
 
       if (!isAuthenticated && params) {
 
+        // Handle differently
+        if (Platform.OS === 'web') {
+          redirectUri = window.location.origin + '/auth-callback';
+        }
+
         // Fetch the token:
-        const token = await fetchTokens(params.code, 'http://localhost:8081/auth-callback');
+        const token = await fetchTokens(params.code, redirectUri);
         const decodedToken = jwtDecode(token.accessToken);
         setAuth(token, decodedToken, params.session_state, params.code)
 
