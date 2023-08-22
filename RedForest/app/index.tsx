@@ -1,19 +1,25 @@
 import { StyleSheet, Text, View, Button} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React from 'react';
+import { Redirect } from 'expo-router';
+
 import { useAuth } from '../src/auth/keycloak';
+import useAuthStore from '../src/store/AuthStore';
 
 
 export default function Page() {
-
-  const initiateLogin = async () => {
+  const [isAuthenticated] = useAuthStore((state) => [state.isAuthenticated]);
+  
+  if (!isAuthenticated) {
     useAuth();
+  }
+  else {
+    return <Redirect href="/home" />
   }
   
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
-      <Button title="Login" onPress={initiateLogin} />
       <StatusBar style="auto" />
     </View>
   );

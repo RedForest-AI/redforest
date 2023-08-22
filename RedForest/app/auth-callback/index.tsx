@@ -1,35 +1,36 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { StyleSheet, Text, View, Alert } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect } from 'react';
+import jwtDecode from 'jwt-decode';
 
 import { fetchTokens } from '../../src/auth/keycloak';
 import useAuthStore from '../../src/store/AuthStore';
 
 export default function Route() {
-  const result = useLocalSearchParams();
-  const [session_state, code, setSessionState, setCode] = useAuthStore((state) => [state.sessionState, state.code, state.setSessionState, state.setCode]);
+  const params = useLocalSearchParams();
+  const [isAuthenticated, setAuth] = useAuthStore((state) => [state.isAuthenticated , state.setAuth]);
+  const router = useRouter();
 
   useEffect(() => {
     async function getTokens(){
 
-      if (!code) {
-        console.log(result);
-        if (!result) {
-          console.log("No result");
-        }
-        else {
-          console.log(result);
-          
-          // Update the data
-          setCode(result.code);
-          setSessionState(result.session_state);
-  
-          // Fetch the token:
-          const token = await fetchTokens(result.code, 'http://localhost:8081/auth-callback');
-          // console.log(token);
-          // setTokens(result);
-          // setIsAuthenticated(true);
-        }
+      if (!isAuthenticated && params) {
+
+        // Fetch the token:
+        const token = await fetchTokens(params.code, 'http://localhost:8081/auth-callback');
+        const decodedToken = jwtDecode(token.accessToken);
+        setAuth(token, decodedToken, params.session_state, params.code)
+
+        // Successful login, send to Home page
+        router.push('/home');
+
+      }
+      else {
+        Alert.alert(
+          'Authentication error',
+          'Keycloak authentication failed. Please try again.'
+        );
+        return;
       }
     }
     getTokens();
@@ -37,8 +38,7 @@ export default function Route() {
 
   return (
     <View style={styles.container}>
-        <Text>Logged IN!</Text>
-        <Text>Session State: { session_state }</Text>
+        <Text>Keycloak Auth-Callback Redirect: { !params } </Text>
     </View>
   );
 }

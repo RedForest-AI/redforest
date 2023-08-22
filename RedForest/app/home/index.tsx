@@ -1,14 +1,17 @@
 import { StyleSheet, Text, View, Button} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React from 'react';
+
+import useAuthStore from '../../src/store/AuthStore';
 
 
 export default function Page() {
+  const [decodedToken] = useAuthStore((state) => [state.decodedToken]);
 
-  
   return (
     <View style={styles.container}>
-      <Text>HOME</Text>
+      <Text>Logged IN!</Text>
+      <Text>Username: { decodedToken.preferred_username } </Text>
       <StatusBar style="auto" />
     </View>
   );

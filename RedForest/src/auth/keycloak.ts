@@ -18,14 +18,6 @@ export function useAuth() {
 export async function fetchTokens(code: string, redirectUri: string) {
   const tokenURL = `http://10.0.0.188:8080/auth/realms/demo/protocol/openid-connect/token`;
 
-  console.log(code);
-
-  // const response = await axios.post(tokenURL, {
-  //   client_id: 'js-console',
-  //   grant_type: 'authorization_code',
-  //   code: code,
-  //   redirect_uri: redirectUri,
-  // });
   const response = await axios({
     method: 'post',
     url: tokenURL,
@@ -38,9 +30,7 @@ export async function fetchTokens(code: string, redirectUri: string) {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
-  })
-
-  console.log(response.data);
+  });
 
   return {
     accessToken: response.data.access_token,

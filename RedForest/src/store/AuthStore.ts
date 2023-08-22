@@ -1,24 +1,21 @@
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
-type State = {
-    token: string;
-    sessionState: string;
-    code: string;
-}
-
-type Action = {
-    setToken: (token: string) => void;
-    setSessionState: (sstate: string) => void;
-    setCode: (code: string) => void;
-}
-
-const useAuthStore = create<State & Action>((set) => ({
-    token: '',
-    sessionState: '',
-    code: '',
-    setSessionState: (sessionState: string) => set(() => ({ sessionState: sessionState })),
-    setToken: (token: string) => set(() => ({ token: token })),
-    setCode: (code: string) => set(() => ({ code: code }))
-}));
+const useAuthStore = create(
+    persist(
+        (set) => ({
+            isAuthenticated: false,
+            token: '',
+            decodedToken: {},
+            sessionState: '',
+            code: '',
+            setAuth: (token: string, decodedToken: any, sessionState: string, code: string) => set(() => ({ token: token, decodedToken: decodedToken, sessionState: sessionState, code: code, isAuthenticated: true })),
+        }),
+        {
+            name: 'auth-storage',
+            storage: createJSONStorage(() => localStorage),
+        }
+    )
+);
 
 export default useAuthStore;
