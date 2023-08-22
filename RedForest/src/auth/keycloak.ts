@@ -1,15 +1,19 @@
 import axios from 'axios'
 import { Platform } from 'react-native';
 import * as WebBrowswer from 'expo-web-browser';
+import getEnvVars from '../environments';
 
 WebBrowswer.maybeCompleteAuthSession();
+
+// Get the Keycloak config from the environment variables
+const envConfig = getEnvVars();
 
 export function useAuth() {
 
   // For web (Essential, do not remove!):
   if (Platform.OS == 'web') {
     const redirect_uri = 'http://localhost:8081/auth-callback';
-    const authURL = `http://10.0.0.188:8080/auth/realms/demo/protocol/openid-connect/auth?client_id=js-console&redirect_uri=${redirect_uri}&scope=openid&response_type=code&state=1234`;
+    const authURL = `${envConfig.keycloak.url}/auth/realms/${envConfig.keycloak.realm}/protocol/openid-connect/auth?client_id=${envConfig.keycloak.clientId}&redirect_uri=${redirect_uri}&scope=openid&response_type=code&state=1234`;
     window.location.href = authURL;
   }
   
@@ -17,20 +21,20 @@ export function useAuth() {
   // Use a library like React Native Linking or expo-web-browser to open this URL.
   else{
     const redirect_uri = 'com.redforest.app://auth-callback'
-    const authURL = `http://10.0.0.188:8080/auth/realms/demo/protocol/openid-connect/auth?client_id=js-console&redirect_uri=${redirect_uri}&scope=openid&response_type=code&state=1234`;
+    const authURL = `${envConfig.keycloak.url}/auth/realms/${envConfig.keycloak.realm}/protocol/openid-connect/auth?client_id=${envConfig.keycloak.clientId}&redirect_uri=${redirect_uri}&scope=openid&response_type=code&state=1234`;
     WebBrowswer.openAuthSessionAsync(authURL, redirect_uri);
     console.log("HELLO")
   }
 }
 
 export async function fetchTokens(code: string, redirectUri: string) {
-  const tokenURL = `http://10.0.0.188:8080/auth/realms/demo/protocol/openid-connect/token`;
+  const tokenURL = `${envConfig.keycloak.url}/auth/realms/${envConfig.keycloak.realm}/protocol/openid-connect/token`;
 
   const response = await axios({
     method: 'post',
     url: tokenURL,
     data: {
-      client_id: 'js-console',
+      client_id: envConfig.keycloak.clientId,
       grant_type: 'authorization_code',
       code: code,
       redirect_uri: redirectUri,
