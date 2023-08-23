@@ -17,7 +17,7 @@ const ENV: { [name: string] : EnvConfig} = {
     dev: {
         keycloak: {
             url: 'http://10.0.0.171:8080',
-            realm: 'demo',
+            realm: 'dev',
             clientId: 'js-console',
         }
     },

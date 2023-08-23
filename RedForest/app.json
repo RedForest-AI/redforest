@@ -4,10 +4,10 @@
     "slug": "RedForest",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/favicon/favicon-32x32.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/favicon/favicon-32x32.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -20,7 +20,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/favicon/favicon-32x32.png",
         "backgroundColor": "#000000",
         "intentFilters": [
           {
@@ -40,7 +40,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png",
+      "favicon": "./assets/favicon/favicon-32x32.png",
       "bundler": "metro"
     },
     "plugins": [
