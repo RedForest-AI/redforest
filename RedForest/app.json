@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "RedForest",
-    "slug": "RedForest",
+    "slug": "redforest",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/favicon/favicon-32x32.png",
@@ -11,33 +11,20 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "scheme": "com.redforest.app",
+    "scheme": "redforest",
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.redforest.ai"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/favicon/favicon-32x32.png",
-        "backgroundColor": "#000000",
-        "intentFilters": [
-          {
-            "action": "VIEW",
-            "data": {
-              "scheme": "https",
-              "host": "*.redforest.app",
-              "pathPrefix": "/",
-              "pathPattern": ".*"
-            },
-            "category": [
-              "BROWSABLE",
-              "DEFAULT"
-            ]
-          }
-        ]
-      }
+        "backgroundColor": "#000000"
+      },
+      "package": "com.redforest.ai"
     },
     "web": {
       "favicon": "./assets/favicon/favicon-32x32.png",
@@ -45,6 +32,15 @@
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "a63f303a-fe26-4834-abc4-47ed6db0afd4"
+      }
+    },
+    "owner": "redforest"
   }
 }

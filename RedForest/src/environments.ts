@@ -1,7 +1,4 @@
 import Constants from 'expo-constants';
-import { Platform } from 'react-native';
-
-const localhost = Platform.OS === 'ios' ? 'localhost:8080' : '10.0.2.2:8080';
 
 interface KeycloakConfig {
     url: string;
@@ -16,7 +13,7 @@ interface EnvConfig {
 const ENV: { [name: string] : EnvConfig} = {
     dev: {
         keycloak: {
-            url: 'http://10.0.0.171:8080',
+            url: 'http://10.66.10.182:8080',
             realm: 'dev',
             clientId: 'js-console',
         }
@@ -24,14 +21,14 @@ const ENV: { [name: string] : EnvConfig} = {
     staging: {
         keycloak: {
             url: 'http://localhost:8080',
-            realm: 'demo',
+            realm: 'dev',
             clientId: 'js-console',
         }
     },
     prod: {
         keycloak: {
             url: 'http://localhost:8080',
-            realm: 'demo',
+            realm: 'dev',
             clientId: 'js-console',
         }
     }
