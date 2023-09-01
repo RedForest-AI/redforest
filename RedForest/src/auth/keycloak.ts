@@ -20,7 +20,7 @@ export function useAuth() {
   // For mobile:
   // Use a library like React Native Linking or expo-web-browser to open this URL.
   else{
-    const redirect_uri = 'redforest://auth-callback'
+    const redirect_uri = 'com.redforest.ai://auth-callback'
     const authURL = `${envConfig.keycloak.url}/auth/realms/${envConfig.keycloak.realm}/protocol/openid-connect/auth?client_id=${envConfig.keycloak.clientId}&redirect_uri=${redirect_uri}&scope=openid&response_type=code&state=1234`;
     WebBrowswer.openAuthSessionAsync(authURL, redirect_uri);
   }
@@ -28,6 +28,7 @@ export function useAuth() {
 
 export async function fetchTokens(code: string, redirectUri: string) {
   const tokenURL = `${envConfig.keycloak.url}/auth/realms/${envConfig.keycloak.realm}/protocol/openid-connect/token`;
+  console.log(code);
 
   const response = await axios({
     method: 'post',

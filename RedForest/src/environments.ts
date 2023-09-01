@@ -13,7 +13,7 @@ interface EnvConfig {
 const ENV: { [name: string] : EnvConfig} = {
     dev: {
         keycloak: {
-            url: 'http://10.66.10.182:8080',
+            url: 'http://10.0.0.188:8080',
             realm: 'dev',
             clientId: 'js-console',
         }

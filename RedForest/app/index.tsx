@@ -17,6 +17,7 @@ export default function Page() {
 
   if (!isAuthenticated) {
     useAuth();
+    console.log("Requested AUTH")
   }
   else {
     return <Redirect href="/home" />
@@ -33,7 +34,8 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#111',
+    color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },

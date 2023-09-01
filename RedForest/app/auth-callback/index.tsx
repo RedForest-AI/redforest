@@ -11,7 +11,8 @@ export default function Route() {
   const params = useLocalSearchParams();
   const [isAuthenticated, setAuth] = useAuthStore((state) => [state.isAuthenticated , state.setAuth]);
   const router = useRouter();
-  let redirectUri = 'com.redforest.app://auth-callback';
+  let redirectUri = 'com.redforest.ai://auth-callback';
+  console.log(params)
 
   useEffect(() => {
     async function getTokens(){
@@ -24,12 +25,16 @@ export default function Route() {
         }
 
         // Fetch the token:
-        const token = await fetchTokens(params.code, redirectUri);
+        const token = await fetchTokens(params.code, redirectUri)
+        .catch((error) => {
+            Alert.alert('Failed Authentication:', error.message);
+        });
         const decodedToken = jwtDecode(token.accessToken);
         setAuth(token, decodedToken, params.session_state, params.code)
 
         // Successful login, send to Home page
         router.push('/home');
+        console.log("Successful login, send to Home page");
 
       }
       else {
@@ -53,7 +58,8 @@ export default function Route() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#111',
+    color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
