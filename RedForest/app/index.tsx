@@ -34,7 +34,7 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#111',
+    backgroundColor: '#181A1B',
     color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
